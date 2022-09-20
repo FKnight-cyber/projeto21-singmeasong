@@ -109,7 +109,7 @@ describe('GET /recommendations', () => {
     });
 });
 
-describe(' GET /recommendations:id', () => {
+describe('GET /recommendations:id', () => {
     it('returns a recommendation by ID', async () => {
         const recommendation = recommendationFactory();
 
@@ -127,6 +127,41 @@ describe(' GET /recommendations:id', () => {
 
     it("returns 404 when informed ID isn't found", async () => {
         const result = await supertest(app).get(`/recommendations/9999999999`).send();
+
+        expect(result.status).toBe(404);
+    });
+});
+
+describe('GET /recommendations/random', () => {
+    it("returns a random recommendations", async () =>{
+        const highScoreRecommendation = recommendationFactory();
+
+        await supertest(app).post('/recommendations/').send(highScoreRecommendation);
+
+        const rec = await prisma.recommendation.findUnique({where:{name:highScoreRecommendation.name}});
+
+        for(let i = 0; i <= 10;i++){
+            await supertest(app).post(`/recommendations/${rec.id}/upvote`).send();
+        };
+
+        for(let i = 0; i < 10;i++){
+            const recommendation = recommendationFactory();
+    
+            await supertest(app).post('/recommendations/').send(recommendation);
+        };
+
+        const result = await supertest(app).get('/recommendations/random').send();
+
+        //7 in 10 times result.body will be equal to highScoreRecommendation;
+
+        expect(result.body).toHaveProperty('id');
+        expect(result.body).toHaveProperty('name');
+        expect(result.body).toHaveProperty('youtubeLink');
+        expect(result.body).toHaveProperty('score');
+    });
+
+    it("returns 404 when there's no recommendations", async () => {
+        const result = await supertest(app).get('/recommendations/random').send();
 
         expect(result.status).toBe(404);
     });
