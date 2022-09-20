@@ -167,6 +167,43 @@ describe('GET /recommendations/random', () => {
     });
 });
 
+describe('GET /recommendations/top/:amount', () => {
+    it("returns the top recommendations ordered by higher score", async () => {
+        const lowerRec = recommendationFactory();
+        const midRec = recommendationFactory();
+        const higherRec = recommendationFactory();
+
+        await supertest(app).post('/recommendations/').send(lowerRec);
+        await supertest(app).post('/recommendations/').send(midRec);
+        await supertest(app).post('/recommendations/').send(higherRec);
+
+        const recMid = await prisma.recommendation.findUnique({where:{name:midRec.name}});
+
+        const recHigher = await prisma.recommendation.findUnique({where:{name:higherRec.name}});
+
+        await supertest(app).post(`/recommendations/${recMid.id}/upvote`).send();
+
+        for(let i = 0; i <= 3;i++){
+            await supertest(app).post(`/recommendations/${recHigher.id}/upvote`).send();
+        };
+
+        const amount = 3;
+
+        const result = await supertest(app).get(`/recommendations/top/${amount}`).send();
+
+        expect(result.body[0].name).toEqual(higherRec.name);
+        expect(result.body[1].name).toEqual(midRec.name);
+        expect(result.body[2].name).toEqual(lowerRec.name);
+        expect(result.body).toBeInstanceOf(Array);
+        expect(result.body.length).toBeLessThanOrEqual(amount);
+        result.body.forEach(rec => {
+            expect(rec).toHaveProperty('id');
+            expect(rec).toHaveProperty('name');
+            expect(rec).toHaveProperty('youtubeLink');
+            expect(rec).toHaveProperty('score');
+        });
+    });
+});
 
 afterAll(async () => {
     await prisma.$disconnect();
