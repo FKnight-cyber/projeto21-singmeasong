@@ -108,8 +108,7 @@ prisma will build another postgress database for test purposes.
 
 ## Lessons Learned
 
-In this project i've implemented cypress tests and backend service tests for the first time, i was quite hard but also interesting to check the integrity
-of all routes and functions and also see if front-end was receiving all the data and functioning correctly.
+In this project i've implemented cypress tests and backend service tests for the first time, it was quite hard but also interesting to check the integrity of all routes and functions and also see if front-end was receiving all the data and functioning correctly.
 
 </br>
 
