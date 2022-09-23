@@ -61,10 +61,6 @@ Go to the project directory
   cd projeto21-singmeasong/back-end
 ```
 
-```bash
-  cd projeto21-singmeasong/front-end
-```
-
 Install dependencies
 
 ```bash
