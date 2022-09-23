@@ -74,7 +74,7 @@ async function getByScore(scoreFilter: "gt" | "lte") {
   return recommendationRepository.findAll();
 }
 
-function getScoreFilter(random: number) {
+export function getScoreFilter(random: number) {
   if (random < 0.7) {
     return "gt";
   }

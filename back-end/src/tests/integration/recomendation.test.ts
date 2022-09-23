@@ -1,8 +1,7 @@
-import app from "../app";
-import prisma from "../database";
+import app from "../../app";
+import prisma from "../../database";
 import supertest from "supertest";
-import recommendationFactory from "./factories/recommendationFactory";
-import { number, string } from "joi";
+import recommendationFactory from "../factories/recommendationFactory";
 
 beforeEach(async () => {
     await prisma.$executeRaw`TRUNCATE TABLE "recommendations"`;
@@ -151,8 +150,6 @@ describe('GET /recommendations/random', () => {
         };
 
         const result = await supertest(app).get('/recommendations/random').send();
-
-        //7 in 10 times result.body will be equal to highScoreRecommendation;
 
         expect(result.body).toHaveProperty('id');
         expect(result.body).toHaveProperty('name');

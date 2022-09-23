@@ -39,5 +39,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "chai-json-schema": "^1.5.1",
+    "cypress": "^10.8.0"
   }
 }
