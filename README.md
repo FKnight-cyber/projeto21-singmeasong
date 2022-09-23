@@ -58,9 +58,13 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd projeto21-singmeasong/backend
+  cd projeto21-singmeasong/back-end
 ```
-
+</br>
+```bash
+  cd projeto21-singmeasong/front-end
+```
+</br>
 Install dependencies
 
 ```bash
@@ -69,9 +73,9 @@ Install dependencies
 
 Create database
 
-The application is currently deployed on Heroku, but if you want to run it locally...
+If you want to run it locally.
 
-cd ../../projeto21-singmeasong/backend
+cd ../../projeto21-singmeasong/back-end
 
 check your .env.test and inform your DATABASE_URL and NODE_ENV
 
