@@ -60,11 +60,11 @@ Go to the project directory
 ```bash
   cd projeto21-singmeasong/back-end
 ```
-</br>
+
 ```bash
   cd projeto21-singmeasong/front-end
 ```
-</br>
+
 Install dependencies
 
 ```bash
