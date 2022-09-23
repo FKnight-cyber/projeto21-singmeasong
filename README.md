@@ -61,6 +61,10 @@ Go to the project directory
   cd projeto21-singmeasong/back-end
 ```
 
+```bash
+  cd projeto21-singmeasong/front-end
+```
+
 Install dependencies
 
 ```bash
@@ -71,7 +75,9 @@ Create database
 
 If you want to run it locally.
 
-cd ../../projeto21-singmeasong/back-end
+```bash
+  cd ../../projeto21-singmeasong/back-end
+```
 
 check your .env.test and inform your DATABASE_URL and NODE_ENV
 
