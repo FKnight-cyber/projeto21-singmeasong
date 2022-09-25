@@ -74,7 +74,7 @@ async function getByScore(scoreFilter: "gt" | "lte") {
   return recommendationRepository.findAll();
 }
 
-export function getScoreFilter(random: number) {
+function getScoreFilter(random: number) {
   if (random < 0.7) {
     return "gt";
   }
@@ -88,6 +88,7 @@ export const recommendationService = {
   downvote,
   getRandom,
   get,
+  getScoreFilter,
   getByScore,
   getById: getByIdOrFail,
   getTop,

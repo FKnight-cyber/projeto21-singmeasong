@@ -269,7 +269,7 @@ describe("Recommendations Service suit test", () => {
         });
     });
 
-    it("should return random recommendation", async () => {
+    it("should return random recommendation 70% change to have score equal or higher than 10", async () => {
         jest.spyOn(recommendationRepository, "findAll").mockImplementationOnce(():any => {
             return [
                 {
@@ -287,6 +287,41 @@ describe("Recommendations Service suit test", () => {
             ]
         });
 
+        jest.spyOn(recommendationService, "getScoreFilter").mockImplementationOnce(():any => {
+            return "lte"
+        });
+
+        const result = await recommendationService.getRandom();
+
+        expect(result).toBeInstanceOf(Object);
+        expect(result).toHaveProperty('id');
+        expect(result).toHaveProperty('name');
+        expect(result).toHaveProperty('youtubeLink');
+        expect(result).toHaveProperty('score');
+    });
+
+    it("should return random recommendation 30% change to have score below 10", async () => {
+        jest.spyOn(recommendationRepository, "findAll").mockImplementationOnce(():any => {
+            return [
+                {
+                    id:1,
+                    name:"test1",
+                    youtubeLink:"https://www.youtube.com/watch?v=chwyjJbcs1Y",
+                    score:10
+                },
+                {
+                    id:2,
+                    name:"test2",
+                    youtubeLink:"https://www.youtube.com/watch?v=chwyjJbcs1Y",
+                    score:-4
+                },
+            ]
+        });
+
+        jest.spyOn(recommendationService, "getScoreFilter").mockImplementationOnce(():any => {
+            return "gt"
+        });
+
         const result = await recommendationService.getRandom();
 
         expect(result).toBeInstanceOf(Object);
@@ -300,10 +335,6 @@ describe("Recommendations Service suit test", () => {
 
         jest.spyOn(recommendationRepository, "findAll").mockImplementation(():any => {
             return []
-        });
-        
-        jest.spyOn(recommendationService, "getByScore").mockImplementationOnce(():any => {
-            return [];
         });
 
         const result = recommendationService.getRandom();
