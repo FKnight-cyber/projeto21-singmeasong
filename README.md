@@ -39,6 +39,10 @@ backend and frontend folders.
 
 `DATABASE_URL = postgres://UserName:Password@Hostname:5432/DatabaseName`
 
+`JWT_SECRET = example senhasupersecreta`
+
+`PORT = 5000`
+
 `NODE_ENV = "test"`
 
 ### frontend
@@ -93,6 +97,14 @@ Start the server
   npm run dev
 ```
 
+```bash
+  cd ../../projeto21-singmeasong/front-end
+```
+
+```bash
+  npm start
+```
+
 Run tests
 
 ```bash
@@ -101,6 +113,14 @@ Run tests
 
 ```bash
   npm run test:integration
+```
+
+```bash
+  cd ../../projeto21-singmeasong/front-end
+```
+
+```bash
+  npx cypress open
 ```
 
 prisma will build another postgress database for test purposes.
